@@ -93,8 +93,7 @@ function handleReset() {
       </SectionTitleLineWithButton>
 
       <LoadingCircle v-if="isLoading" />
-
-      <CardBox has-table v-if="tableData.length > 0 && !isLoading">
+      <CardBox has-table v-else-if="tableData.length > 0 && !isLoading">
         <TableListPresenceMonth :data="tableData" />
       </CardBox>
       <CardBox v-else>
