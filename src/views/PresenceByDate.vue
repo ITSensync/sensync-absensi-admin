@@ -83,7 +83,7 @@ function handleReset() {
         </div>
       </component>
 
-      <SectionTitleLineWithButton :icon="mdiTable" title="Daftar Absensi" class="-mt-5">
+      <SectionTitleLineWithButton :icon="mdiTable" :title="`Daftar Absensi (${tableData.length})`" class="-mt-5">
         <BaseButton
           href="https://github.com/justboil/admin-one-vue-tailwind"
           target="_blank"
