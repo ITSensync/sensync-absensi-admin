@@ -35,7 +35,6 @@ watch(
     totalPresenceToday.value = newToday.length
     totalPresenceMonthly.value = newMonthly.length
     dataPresenceToday.value = newToday
-    console.log(totalPresenceToday.value)
   },
 )
 

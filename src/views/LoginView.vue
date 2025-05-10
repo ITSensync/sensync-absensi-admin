@@ -21,7 +21,6 @@ const error = ref(false)
 const router = useRouter()
 
 const submit = () => {
-  console.log(form.login)
   if (form.login === 'admin' && form.pass === 'admin') {
     router.push('/')
     AuthToken.setAuthToken('auth-token', 'oqkwfqnfqwne2312341fmamsd', 3600000)
