@@ -20,6 +20,7 @@ export const useMainStore = defineStore('main', () => {
   const history = ref([])
   const presenceToday = ref([])
   const presenceMonthly = ref([])
+  const presenceRangeByDate = ref([])
 
   function setUser(payload) {
     if (payload.name) {
@@ -70,6 +71,22 @@ export const useMainStore = defineStore('main', () => {
       })
   }
 
+  function fetchRangePresence(startDate, endDate) {
+    var url = '';
+
+    if (startDate && endDate) {
+      url = `https://api-absensi.getsensync.com/api/absensi/rekap/rekap-range?start=${startDate}&end=${endDate}`;
+    } else {
+      url = `https://api-absensi.getsensync.com/api/absensi/rekap/${startDate}`
+    }
+    axios.get(url).then((result) => {
+      presenceRangeByDate.value = result?.data
+    })
+      .catch((error) => {
+        alert(error.message)
+      })
+  }
+
   return {
     userName,
     userEmail,
@@ -79,10 +96,12 @@ export const useMainStore = defineStore('main', () => {
     history,
     presenceToday,
     presenceMonthly,
+    presenceRangeByDate,
     setUser,
     fetchSampleClients,
     fetchSampleHistory,
     fetchPresenceToday,
-    fetchPresenceMonthly
+    fetchPresenceMonthly,
+    fetchRangePresence,
   }
 })

@@ -8,6 +8,10 @@ const props = defineProps({
     type: String,
     default: null,
   },
+  label: {
+    type: String,
+    default: null,
+  },
   id: {
     type: String,
     default: null,
@@ -125,6 +129,7 @@ if (props.ctrlKFocus) {
 
 <template>
   <div class="relative">
+    <p v-if="label" class="text-sm font-bold mb-1 -mt-1">{{ label }}</p>
     <select
       v-if="computedType === 'select'"
       :id="id"

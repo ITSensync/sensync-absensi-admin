@@ -32,6 +32,14 @@ const routes = [
   },
   {
     meta: {
+      title: 'Presence By Date',
+    },
+    path: '/presence-date',
+    name: 'presence by date',
+    component: () => import('@/views/PresenceByDate.vue'),
+  },
+  {
+    meta: {
       title: 'Forms',
     },
     path: '/forms',

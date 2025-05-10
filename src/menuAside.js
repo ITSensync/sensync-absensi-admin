@@ -1,7 +1,7 @@
 import {
+  mdiCalendarToday,
   mdiMonitor,
-  mdiTable,
-  mdiViewList,
+  mdiSquareEditOutline,
 } from '@mdi/js'
 
 export default [
@@ -11,15 +11,20 @@ export default [
     label: 'Dashboard',
   },
   {
-    to: '/tables',
-    label: 'Tables',
-    icon: mdiTable,
+    to: '/presence-date',
+    label: 'Per Tanggal',
+    icon: mdiCalendarToday,
   },
   // {
-  //   to: '/forms',
-  //   label: 'Forms',
-  //   icon: mdiSquareEditOutline,
+  //   to: '/tables',
+  //   label: 'Tables',
+  //   icon: mdiTable,
   // },
+  {
+    to: '/forms',
+    label: 'Forms',
+    icon: mdiSquareEditOutline,
+  },
   // {
   //   to: '/ui',
   //   label: 'UI',
@@ -50,16 +55,16 @@ export default [
   //   label: 'Error',
   //   icon: mdiAlertCircle,
   // },
-  {
-    label: 'Dropdown',
-    icon: mdiViewList,
-    menu: [
-      {
-        label: 'Item One',
-      },
-      {
-        label: 'Item Two',
-      },
-    ],
-  },
+  // {
+  //   label: 'Dropdown',
+  //   icon: mdiViewList,
+  //   menu: [
+  //     {
+  //       label: 'Item One',
+  //     },
+  //     {
+  //       label: 'Item Two',
+  //     },
+  //   ],
+  // },
 ]

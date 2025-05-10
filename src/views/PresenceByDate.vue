@@ -1,0 +1,108 @@
+<script setup>
+import BaseButton from '@/components/BaseButton.vue'
+import CardBox from '@/components/CardBox.vue'
+import CardBoxComponentEmpty from '@/components/CardBoxComponentEmpty.vue'
+import FormControl from '@/components/FormControl.vue'
+import FormField from '@/components/FormField.vue'
+import LoadingCircle from '@/components/LoadingCircle.vue'
+import SectionMain from '@/components/SectionMain.vue'
+import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue'
+import TableListPresence from '@/components/TableListPresence.vue'
+import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
+import { useMainStore } from '@/stores/main'
+import { mdiCalendarRange, mdiFileExcel, mdiTable } from '@mdi/js'
+import { onMounted, reactive, ref, watch } from 'vue'
+
+const form = reactive({
+  startDate: '',
+  endDate: '',
+})
+const mainStore = useMainStore()
+const tableData = ref([])
+const isLoading = ref(false)
+
+onMounted(() => {
+  mainStore.fetchPresenceToday
+  tableData.value = mainStore.presenceToday
+})
+
+watch(
+  () => mainStore.presenceRangeByDate,
+  (newVal) => {
+    tableData.value = newVal
+  },
+)
+
+function handleSubmit() {
+  isLoading.value = true
+  if (!form.startDate) {
+    alert('Tanggal Awal harus diisi')
+  } else {
+    console.log('Semua tanggal sudah diisi:', form.startDate, form.endDate)
+    mainStore.fetchRangePresence(form.startDate, form.endDate)
+  }
+  isLoading.value = false
+}
+
+function handleReset() {
+  isLoading.value = true
+  form.startDate = ''
+  form.endDate = ''
+  tableData.value = mainStore.presenceToday
+  isLoading.value = false
+}
+</script>
+
+<template>
+  <LayoutAuthenticated>
+    <SectionMain>
+      <SectionTitleLineWithButton
+        :icon="mdiCalendarRange"
+        title="Filter Rentang Tanggal"
+        class="-mt-4"
+      />
+      <component :is="'form'" class="mb-8" @submit.prevent="handleSubmit">
+        <FormField help="Jangan isi tanggal akhir jika untuk range data satu hari">
+          <FormControl
+            label="Tanggal Awal"
+            v-model="form.startDate"
+            type="date"
+            placeholder="Tanggal Awal"
+            required
+          ></FormControl>
+          <FormControl
+            label="Tanggal Akhir"
+            v-model="form.endDate"
+            type="date"
+            placeholder="Tanggal Akhir"
+          ></FormControl>
+        </FormField>
+        <div class="w-full gap-4 flex justify-end -mt-5">
+          <BaseButton type="submit" color="info" label="Submit" />
+          <BaseButton type="reset" color="danger" outline label="Reset" :onclick="handleReset" />
+        </div>
+      </component>
+
+      <SectionTitleLineWithButton :icon="mdiTable" title="Daftar Absensi" class="-mt-5">
+        <BaseButton
+          href="https://github.com/justboil/admin-one-vue-tailwind"
+          target="_blank"
+          :icon="mdiFileExcel"
+          label="Export .XLS"
+          color="success"
+          rounded-full
+          small
+        />
+      </SectionTitleLineWithButton>
+
+      <LoadingCircle v-if="isLoading" />
+
+      <CardBox has-table v-if="tableData.length > 0 && !isLoading">
+        <TableListPresence :data="tableData" />
+      </CardBox>
+      <CardBox v-else>
+        <CardBoxComponentEmpty />
+      </CardBox>
+    </SectionMain>
+  </LayoutAuthenticated>
+</template>
