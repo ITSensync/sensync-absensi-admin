@@ -1,5 +1,5 @@
 import {
-  mdiAccount,
+  mdiAccountTie,
   mdiCalendarMonth,
   mdiCalendarToday,
   mdiMonitor,
@@ -24,7 +24,7 @@ export default [
   {
     to: '/presence-person',
     label: 'Per Orang',
-    icon: mdiAccount,
+    icon: mdiAccountTie,
   },
   // {
   //   to: '/tables',
