@@ -1,29 +1,16 @@
 <!-- eslint-disable no-unused-vars -->
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import { useMainStore } from '@/stores/main'
-import {
-  mdiAccountMultiple,
-  mdiCartOutline,
-  mdiChartTimelineVariant,
-  mdiMonitorCellphone,
-  mdiReload,
-  mdiGithub,
-  mdiChartPie,
-} from '@mdi/js'
+import { mdiAccountMultiple, mdiChartTimelineVariant, mdiCalendar, mdiCalendarMonth } from '@mdi/js'
 import * as chartConfig from '@/components/Charts/chart.config.js'
-import LineChart from '@/components/Charts/LineChart.vue'
 import SectionMain from '@/components/SectionMain.vue'
 import CardBoxWidget from '@/components/CardBoxWidget.vue'
 import CardBox from '@/components/CardBox.vue'
-import TableSampleClients from '@/components/TableSampleClients.vue'
-import NotificationBar from '@/components/NotificationBar.vue'
-import BaseButton from '@/components/BaseButton.vue'
-import CardBoxTransaction from '@/components/CardBoxTransaction.vue'
-import CardBoxClient from '@/components/CardBoxClient.vue'
 import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
 import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue'
-import SectionBannerStarOnGitHub from '@/components/SectionBannerStarOnGitHub.vue'
+import TableListPresence from '@/components/TableListPresence.vue'
+import CardBoxComponentEmpty from '@/components/CardBoxComponentEmpty.vue'
 
 const chartData = ref(null)
 
@@ -31,15 +18,30 @@ const fillChartData = () => {
   chartData.value = chartConfig.sampleChartData()
 }
 
-onMounted(() => {
-  fillChartData()
-})
-
 const mainStore = useMainStore()
+const totalPresenceToday = ref(0)
+const totalPresenceMonthly = ref(0)
+const dataPresenceToday = ref([])
 
-const clientBarItems = computed(() => mainStore.clients.slice(0, 4))
+// onMounted(() => {
+//   fillChartData()
+// })
 
-const transactionBarItems = computed(() => mainStore.history)
+mainStore.fetchPresenceToday()
+mainStore.fetchPresenceMonthly('2025-05')
+watch(
+  [() => mainStore.presenceToday, () => mainStore.presenceMonthly],
+  ([newToday, newMonthly]) => {
+    totalPresenceToday.value = newToday.length
+    totalPresenceMonthly.value = newMonthly.length
+    dataPresenceToday.value = newToday
+    console.log(totalPresenceToday.value)
+  },
+)
+
+/* const clientBarItems = computed(() => mainStore.clients.slice(0, 4))
+
+const transactionBarItems = computed(() => mainStore.history) */
 </script>
 
 <template>
@@ -48,34 +50,39 @@ const transactionBarItems = computed(() => mainStore.history)
       <SectionTitleLineWithButton :icon="mdiChartTimelineVariant" title="Overview" main>
       </SectionTitleLineWithButton>
 
-      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-3">
         <CardBoxWidget
-          trend="12%"
-          trend-type="up"
+          class="h-fit"
           color="text-emerald-500"
           :icon="mdiAccountMultiple"
-          :number="512"
-          label="Clients"
+          :number="12"
+          label="Karyawan"
         />
         <CardBoxWidget
-          trend="12%"
-          trend-type="down"
+          class="h-fit"
           color="text-blue-500"
-          :icon="mdiCartOutline"
-          :number="7770"
-          prefix="$"
-          label="Sales"
+          :icon="mdiCalendar"
+          :number="totalPresenceToday"
+          label="Rekap Hari Ini"
         />
         <CardBoxWidget
-          trend="Overflow"
-          trend-type="alert"
+          class="h-fit"
           color="text-red-500"
-          :icon="mdiChartTimelineVariant"
-          :number="256"
-          suffix="%"
-          label="Performance"
+          :icon="mdiCalendarMonth"
+          :number="totalPresenceMonthly"
+          label="Rekap Bulanan"
         />
       </div>
+
+      <SectionTitleLineWithButton :icon="mdiAccountMultiple" title="Absensi Hari Ini" />
+
+      <CardBox has-table v-if="totalPresenceToday > 0">
+        <TableListPresence :data="dataPresenceToday" />
+      </CardBox>
+
+      <CardBox v-else>
+        <CardBoxComponentEmpty />
+      </CardBox>
 
       <!-- <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <div class="flex flex-col justify-between">
@@ -114,15 +121,9 @@ const transactionBarItems = computed(() => mainStore.history)
         </div>
       </CardBox> -->
 
-      <SectionTitleLineWithButton :icon="mdiAccountMultiple" title="Clients" />
-
       <!-- <NotificationBar color="info" :icon="mdiMonitorCellphone">
         <b>Responsive table.</b> Collapses on mobile
       </NotificationBar> -->
-
-      <CardBox has-table>
-        <TableSampleClients />
-      </CardBox>
     </SectionMain>
   </LayoutAuthenticated>
 </template>

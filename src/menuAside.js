@@ -1,5 +1,6 @@
 import {
   mdiMonitor,
+  mdiTable,
   mdiViewList,
 } from '@mdi/js'
 
@@ -9,11 +10,11 @@ export default [
     icon: mdiMonitor,
     label: 'Dashboard',
   },
-  // {
-  //   to: '/tables',
-  //   label: 'Tables',
-  //   icon: mdiTable,
-  // },
+  {
+    to: '/tables',
+    label: 'Tables',
+    icon: mdiTable,
+  },
   // {
   //   to: '/forms',
   //   label: 'Forms',

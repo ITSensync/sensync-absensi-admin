@@ -18,6 +18,8 @@ export const useMainStore = defineStore('main', () => {
 
   const clients = ref([])
   const history = ref([])
+  const presenceToday = ref([])
+  const presenceMonthly = ref([])
 
   function setUser(payload) {
     if (payload.name) {
@@ -50,6 +52,24 @@ export const useMainStore = defineStore('main', () => {
       })
   }
 
+  function fetchPresenceToday() {
+    axios.get('https://api-absensi.getsensync.com/api/absensi/rekap').then((result) => {
+      presenceToday.value = result?.data
+    })
+      .catch((error) => {
+        alert(error.message)
+      })
+  }
+
+  function fetchPresenceMonthly(date) {
+    axios.get(`https://api-absensi.getsensync.com/api/absensi/rekap/bulanan?bulan=${date}`).then((result) => {
+      presenceMonthly.value = result?.data
+    })
+      .catch((error) => {
+        alert(error.message)
+      })
+  }
+
   return {
     userName,
     userEmail,
@@ -57,8 +77,12 @@ export const useMainStore = defineStore('main', () => {
     isFieldFocusRegistered,
     clients,
     history,
+    presenceToday,
+    presenceMonthly,
     setUser,
     fetchSampleClients,
     fetchSampleHistory,
+    fetchPresenceToday,
+    fetchPresenceMonthly
   }
 })
