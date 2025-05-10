@@ -101,7 +101,7 @@ function handleReset() {
         <TableListPresence :data="tableData" />
       </CardBox>
       <CardBox v-else>
-        <CardBoxComponentEmpty />
+        <CardBoxComponentEmpty text="Belum ada yang absen nih..." />
       </CardBox>
     </SectionMain>
   </LayoutAuthenticated>

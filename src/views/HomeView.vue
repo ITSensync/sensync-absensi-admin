@@ -80,7 +80,7 @@ const transactionBarItems = computed(() => mainStore.history) */
       </CardBox>
 
       <CardBox v-else>
-        <CardBoxComponentEmpty />
+        <CardBoxComponentEmpty text="Belum ada yang absen nih..." />
       </CardBox>
 
       <!-- <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
