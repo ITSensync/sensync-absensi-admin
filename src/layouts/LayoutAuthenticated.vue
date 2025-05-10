@@ -1,16 +1,16 @@
 <script setup>
 import { mdiForwardburger, mdiBackburger, mdiMenu } from '@mdi/js'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import menuAside from '@/menuAside.js'
 import menuNavBar from '@/menuNavBar.js'
 import { useDarkModeStore } from '@/stores/darkMode.js'
 import BaseIcon from '@/components/BaseIcon.vue'
-import FormControl from '@/components/FormControl.vue'
 import NavBar from '@/components/NavBar.vue'
 import NavBarItemPlain from '@/components/NavBarItemPlain.vue'
 import AsideMenu from '@/components/AsideMenu.vue'
 import FooterBar from '@/components/FooterBar.vue'
+import { useTimeStore } from '@/stores/time'
 
 const layoutAsidePadding = 'xl:pl-60'
 
@@ -35,6 +35,11 @@ const menuClick = (event, item) => {
     //
   }
 }
+
+const timeStore = useTimeStore()
+onMounted(() => {
+  timeStore.startClock()
+})
 </script>
 
 <template>
@@ -61,8 +66,14 @@ const menuClick = (event, item) => {
         <NavBarItemPlain display="hidden lg:flex xl:hidden" @click.prevent="isAsideLgActive = true">
           <BaseIcon :path="mdiMenu" size="24" />
         </NavBarItemPlain>
-        <NavBarItemPlain use-margin>
-          <FormControl placeholder="Search (ctrl+k)" ctrl-k-focus transparent borderless />
+        <NavBarItemPlain use-margin class="p-4 dark:hover:text-white">
+          <div class="flex flex-row gap-2 justify-end items-end">
+            <p class="text-md font-bold">
+              {{ timeStore.date }}
+            </p>
+            <p>/</p>
+            <p class="text-md font-semibold">{{ timeStore.time }}</p>
+          </div>
         </NavBarItemPlain>
       </NavBar>
       <AsideMenu
