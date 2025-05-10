@@ -1,24 +1,35 @@
 <script setup>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { mdiAccount, mdiAsterisk } from '@mdi/js'
+import { mdiAccount, mdiAlertCircleOutline, mdiAsterisk } from '@mdi/js'
 import SectionFullScreen from '@/components/SectionFullScreen.vue'
 import CardBox from '@/components/CardBox.vue'
 import FormField from '@/components/FormField.vue'
 import FormControl from '@/components/FormControl.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import LayoutGuest from '@/layouts/LayoutGuest.vue'
+import NotificationBar from '@/components/NotificationBar.vue'
+import AuthToken from '@/utils/AuthToken'
 
 const form = reactive({
-  login: 'john.doe',
-  pass: 'highly-secure-password-fYjUw-',
+  login: '',
+  pass: '',
   remember: true,
 })
+const error = ref(false)
 
 const router = useRouter()
 
 const submit = () => {
-  router.push('/')
+  console.log(form.login)
+  if (form.login === 'admin' && form.pass === 'admin') {
+    router.push('/')
+    AuthToken.setAuthToken('auth-token', 'oqkwfqnfqwne2312341fmamsd', 3600000)
+  } else {
+    error.value = true
+    form.login = ''
+    form.pass = ''
+  }
 }
 </script>
 
@@ -28,6 +39,7 @@ const submit = () => {
       <CardBox :class="cardClass" is-form @submit.prevent="submit">
         <FormField label="Login" help="Please enter your username">
           <FormControl
+            placeholder="John Doe"
             v-model="form.login"
             :icon="mdiAccount"
             name="login"
@@ -37,6 +49,7 @@ const submit = () => {
 
         <FormField label="Password" help="Please enter your password">
           <FormControl
+            placeholder="ABC123"
             v-model="form.pass"
             :icon="mdiAsterisk"
             type="password"
@@ -60,6 +73,10 @@ const submit = () => {
             <BaseButton to="/dashboard" color="info" outline label="Back" />
           </BaseButtons>
         </template> -->
+        <NotificationBar color="danger" class="mt-4" :icon="mdiAlertCircleOutline" v-if="error">
+          <b>Invalid Credentials!</b> Try Again.
+          <template #right> </template>
+        </NotificationBar>
       </CardBox>
     </SectionFullScreen>
   </LayoutGuest>

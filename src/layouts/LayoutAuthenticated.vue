@@ -11,6 +11,7 @@ import NavBarItemPlain from '@/components/NavBarItemPlain.vue'
 import AsideMenu from '@/components/AsideMenu.vue'
 import FooterBar from '@/components/FooterBar.vue'
 import { useTimeStore } from '@/stores/time'
+import AuthToken from '@/utils/AuthToken'
 
 const layoutAsidePadding = 'xl:pl-60'
 
@@ -32,13 +33,20 @@ const menuClick = (event, item) => {
   }
 
   if (item.isLogout) {
-    //
+    localStorage.removeItem('auth-token')
   }
 }
 
 const timeStore = useTimeStore()
 onMounted(() => {
   timeStore.startClock()
+})
+
+onMounted(() => {
+  const token = AuthToken.validateAuthToken('auth-token')
+  if (!token) {
+    router.push('/error')
+  }
 })
 </script>
 
