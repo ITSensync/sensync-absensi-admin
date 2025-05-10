@@ -1,7 +1,8 @@
 import {
+  mdiAccount,
+  mdiCalendarMonth,
   mdiCalendarToday,
   mdiMonitor,
-  mdiSquareEditOutline,
 } from '@mdi/js'
 
 export default [
@@ -15,16 +16,26 @@ export default [
     label: 'Per Tanggal',
     icon: mdiCalendarToday,
   },
+  {
+    to: '/presence-monthly',
+    label: 'Per Bulan',
+    icon: mdiCalendarMonth,
+  },
+  {
+    to: '/presence-person',
+    label: 'Per Orang',
+    icon: mdiAccount,
+  },
   // {
   //   to: '/tables',
   //   label: 'Tables',
   //   icon: mdiTable,
   // },
-  {
-    to: '/forms',
-    label: 'Forms',
-    icon: mdiSquareEditOutline,
-  },
+  // {
+  //   to: '/forms',
+  //   label: 'Forms',
+  //   icon: mdiSquareEditOutline,
+  // },
   // {
   //   to: '/ui',
   //   label: 'UI',

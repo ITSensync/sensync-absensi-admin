@@ -40,6 +40,22 @@ const routes = [
   },
   {
     meta: {
+      title: 'Presence By Month',
+    },
+    path: '/presence-monthly',
+    name: 'presence by month',
+    component: () => import('@/views/PresenceByMonth.vue'),
+  },
+  {
+    meta: {
+      title: 'Presence By Person',
+    },
+    path: '/presence-person',
+    name: 'presence by person',
+    component: () => import('@/views/PresenceByPerson.vue'),
+  },
+  {
+    meta: {
       title: 'Forms',
     },
     path: '/forms',
