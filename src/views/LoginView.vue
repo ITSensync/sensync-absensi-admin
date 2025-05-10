@@ -23,7 +23,7 @@ const router = useRouter()
 const submit = () => {
   if (form.login === 'admin' && form.pass === 'admin') {
     router.push('/')
-    AuthToken.setAuthToken('auth-token', 'oqkwfqnfqwne2312341fmamsd', 3600000)
+    AuthToken.setAuthToken('auth-token', 'oqkwfqnfqwne2312341fmamsd', 10800000) //3 hours
   } else {
     error.value = true
     form.login = ''
