@@ -21,6 +21,7 @@ const form = reactive({
 const mainStore = useMainStore()
 const isLoading = ref(false)
 const tableData = ref([])
+const selectedMonth = ref('')
 
 onMounted(() => {
   mainStore.fetchPresenceMonthly(DateFormatter.getTodayMonth())
@@ -41,6 +42,7 @@ function handleSubmit() {
     alert('input bulan harus diisi')
   } else {
     console.log('input bulan sudah diisi:', form.filterMonth)
+    selectedMonth.value = form.filterMonth
     mainStore.fetchPresenceMonthly(form.filterMonth)
     // mainStore.fetchRangePresence(form.startDate, form.endDate)
   }
@@ -50,6 +52,7 @@ function handleSubmit() {
 function handleReset() {
   isLoading.value = true
   form.filterMonth = ''
+  selectedMonth.value = ''
   mainStore.fetchPresenceMonthly(DateFormatter.getTodayMonth())
   isLoading.value = false
 }
@@ -83,7 +86,7 @@ function handleBtnExcel() {
 
       <SectionTitleLineWithButton
         :icon="mdiTable"
-        :title="`Daftar Absensi  -  ${DateFormatter.convertToNamedMonth(form.filterMonth ? form.filterMonth : DateFormatter.getTodayMonth())}`"
+        :title="`Daftar Absensi  -  ${DateFormatter.convertToNamedMonth(selectedMonth ? selectedMonth : DateFormatter.getTodayMonth())}`"
       >
         <BaseButton
           @click="handleBtnExcel"
