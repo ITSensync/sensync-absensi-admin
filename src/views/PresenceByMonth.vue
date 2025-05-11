@@ -58,7 +58,7 @@ function handleReset() {
   <LayoutAuthenticated>
     <SectionMain>
       <SectionTitleLineWithButton :icon="mdiCalendarMonth" title="Filter Bulan" class="-mt-4" />
-      <component :is="'form'" class="mb-8" @submit.prevent="handleSubmit">
+      <component :is="'form'" class="-mb-4" @submit.prevent="handleSubmit">
         <div class="flex flex-row items-center gap-5">
           <FormField help="Pilih bulan untuk difilter" class="w-full">
             <FormControl
@@ -79,7 +79,6 @@ function handleReset() {
       <SectionTitleLineWithButton
         :icon="mdiTable"
         :title="`Daftar Absensi  -  ${DateFormatter.convertToNamedMonth(form.filterMonth ? form.filterMonth : DateFormatter.getTodayMonth())}`"
-        class="-mt-5"
       >
         <BaseButton
           href="https://github.com/justboil/admin-one-vue-tailwind"
