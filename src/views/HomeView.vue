@@ -33,7 +33,7 @@ watch(
   [() => mainStore.presenceToday, () => mainStore.presenceMonthly],
   ([newToday, newMonthly]) => {
     totalPresenceToday.value = newToday.length
-    totalPresenceMonthly.value = newMonthly.length
+    totalPresenceMonthly.value = newMonthly.reduce((sum, item) => sum + item.jumlah_hadir, 0)
     dataPresenceToday.value = newToday
   },
 )
