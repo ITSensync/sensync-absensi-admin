@@ -137,6 +137,7 @@ if (props.ctrlKFocus) {
       :name="name"
       :class="inputElClass"
     >
+      <option value="" disabled selected hidden>Pilih Opsi</option>
       <option v-for="option in options" :key="option.id ?? option" :value="option">
         {{ option.label ?? option }}
       </option>

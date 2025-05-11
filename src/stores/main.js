@@ -21,6 +21,7 @@ export const useMainStore = defineStore('main', () => {
   const presenceToday = ref([])
   const presenceMonthly = ref([])
   const presenceRangeByDate = ref([])
+  const presenceByPerson = ref([])
 
   function setUser(payload) {
     if (payload.name) {
@@ -87,6 +88,23 @@ export const useMainStore = defineStore('main', () => {
       })
   }
 
+  function fetchPresencePerson(mac_address, filterMonth) {
+    axios.get(`https://api-absensi.getsensync.com/api/absensi/rekap/detail/${mac_address}`).then((result) => {
+      const allData = result?.data || []
+
+      const filtered = allData.filter((item) => {
+        const seenMonth = new Date(item.terakhir_terlihat).toISOString().slice(0, 7) // "YYYY-MM"
+        return seenMonth === filterMonth
+      })
+
+      presenceByPerson.value = filtered
+
+    })
+      .catch((error) => {
+        alert(error.message)
+      })
+  }
+
   return {
     userName,
     userEmail,
@@ -97,11 +115,13 @@ export const useMainStore = defineStore('main', () => {
     presenceToday,
     presenceMonthly,
     presenceRangeByDate,
+    presenceByPerson,
     setUser,
     fetchSampleClients,
     fetchSampleHistory,
     fetchPresenceToday,
     fetchPresenceMonthly,
     fetchRangePresence,
+    fetchPresencePerson,
   }
 })

@@ -30,8 +30,18 @@ function getTodayMonth() {
   return yearMonth
 }
 
+function formatToDate(iso) {
+  const date = new Date(iso)
+  return date.toLocaleDateString('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  })
+}
+
 export default {
   convertToTime,
   convertToNamedMonth,
-  getTodayMonth
+  getTodayMonth,
+  formatToDate
 }
