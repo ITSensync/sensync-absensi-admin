@@ -10,6 +10,7 @@ import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.
 import TableListPresence from '@/components/TableListPresence.vue'
 import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
 import { useMainStore } from '@/stores/main'
+import Export from '@/utils/Export'
 import { mdiCalendarRange, mdiFileExcel, mdiTable } from '@mdi/js'
 import { onMounted, reactive, ref, watch } from 'vue'
 
@@ -51,6 +52,10 @@ function handleReset() {
   tableData.value = mainStore.presenceToday
   isLoading.value = false
 }
+
+function handleBtnExcel() {
+  Export.exportToExcel(tableData.value, `Absensi_${form.startDate}-${form.endDate}.xlsx`)
+}
 </script>
 
 <template>
@@ -85,12 +90,9 @@ function handleReset() {
         </div>
       </component>
 
-      <SectionTitleLineWithButton
-        :icon="mdiTable"
-        :title="`Daftar Absensi (${tableData.length})`"
-      >
+      <SectionTitleLineWithButton :icon="mdiTable" :title="`Daftar Absensi (${tableData.length})`">
         <BaseButton
-          href="https://github.com/justboil/admin-one-vue-tailwind"
+          @click="handleBtnExcel"
           target="_blank"
           :icon="mdiFileExcel"
           label="Export .XLS"

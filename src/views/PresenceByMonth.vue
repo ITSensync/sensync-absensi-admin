@@ -11,6 +11,7 @@ import TableListPresenceMonth from '@/components/TableListPresenceMonth.vue'
 import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
 import { useMainStore } from '@/stores/main'
 import DateFormatter from '@/utils/DateFormatter'
+import Export from '@/utils/Export'
 import { mdiCalendarMonth, mdiFileExcel, mdiTable } from '@mdi/js'
 import { onMounted, reactive, ref, watch } from 'vue'
 
@@ -52,6 +53,10 @@ function handleReset() {
   mainStore.fetchPresenceMonthly(DateFormatter.getTodayMonth())
   isLoading.value = false
 }
+
+function handleBtnExcel() {
+  Export.exportToExcel(tableData.value, `Absensi_bulan-${form.filterMonth}.xlsx`)
+}
 </script>
 
 <template>
@@ -81,10 +86,10 @@ function handleReset() {
         :title="`Daftar Absensi  -  ${DateFormatter.convertToNamedMonth(form.filterMonth ? form.filterMonth : DateFormatter.getTodayMonth())}`"
       >
         <BaseButton
-          href="https://github.com/justboil/admin-one-vue-tailwind"
+          @click="handleBtnExcel"
           target="_blank"
           :icon="mdiFileExcel"
-          label="Export .XLS"
+          label="Export .XLSX"
           color="success"
           rounded-full
           small
