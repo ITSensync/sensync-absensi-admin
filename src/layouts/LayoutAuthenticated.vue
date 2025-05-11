@@ -58,7 +58,7 @@ onMounted(() => {
   >
     <div
       :class="[layoutAsidePadding, { 'ml-60 lg:ml-0': isAsideMobileExpanded }]"
-      class="pt-14 min-h-screen w-screen transition-position lg:w-auto bg-gray-50 dark:bg-slate-800 dark:text-slate-100"
+      class="flex flex-col pt-14 min-h-screen w-screen transition-position lg:w-auto bg-gray-50 dark:bg-slate-800 dark:text-slate-100"
     >
       <NavBar
         :menu="menuNavBar"
@@ -91,8 +91,10 @@ onMounted(() => {
         @menu-click="menuClick"
         @aside-lg-close-click="isAsideLgActive = false"
       />
-      <slot />
-      <FooterBar> Sensync Absensi </FooterBar>
+      <div class="flex-1">
+        <slot />
+      </div>
+      <FooterBar class="inset-x-0 bottom-0"> Sensync Absensi </FooterBar>
     </div>
   </div>
 </template>
