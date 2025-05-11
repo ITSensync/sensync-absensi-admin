@@ -61,29 +61,34 @@ function handleReset() {
         title="Filter Rentang Tanggal"
         class="-mt-4"
       />
-      <component :is="'form'" class="mb-8" @submit.prevent="handleSubmit">
-        <FormField help="Jangan isi tanggal akhir jika untuk range data satu hari">
-          <FormControl
-            label="Tanggal Awal"
-            v-model="form.startDate"
-            type="date"
-            placeholder="Tanggal Awal"
-            required
-          ></FormControl>
-          <FormControl
-            label="Tanggal Akhir"
-            v-model="form.endDate"
-            type="date"
-            placeholder="Tanggal Akhir"
-          ></FormControl>
-        </FormField>
-        <div class="w-full gap-4 flex justify-end -mt-5">
-          <BaseButton type="submit" color="info" label="Submit" />
-          <BaseButton type="reset" color="danger" outline label="Reset" :onclick="handleReset" />
+      <component :is="'form'" class="-mb-4" @submit.prevent="handleSubmit">
+        <div class="flex flex-row items-center gap-5">
+          <FormField help="Jangan isi tanggal akhir jika untuk range data satu hari" class="w-full">
+            <FormControl
+              label="Tanggal Awal"
+              v-model="form.startDate"
+              type="date"
+              placeholder="Tanggal Awal"
+              required
+            ></FormControl>
+            <FormControl
+              label="Tanggal Akhir"
+              v-model="form.endDate"
+              type="date"
+              placeholder="Tanggal Akhir"
+            ></FormControl>
+          </FormField>
+          <div class="w-fit gap-4 flex justify-end -mt-5">
+            <BaseButton type="submit" color="info" label="Submit" />
+            <BaseButton type="reset" color="danger" outline label="Reset" :onclick="handleReset" />
+          </div>
         </div>
       </component>
 
-      <SectionTitleLineWithButton :icon="mdiTable" :title="`Daftar Absensi (${tableData.length})`" class="-mt-5">
+      <SectionTitleLineWithButton
+        :icon="mdiTable"
+        :title="`Daftar Absensi (${tableData.length})`"
+      >
         <BaseButton
           href="https://github.com/justboil/admin-one-vue-tailwind"
           target="_blank"
