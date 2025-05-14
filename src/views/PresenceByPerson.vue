@@ -21,6 +21,8 @@ const selectOptions = [
   { id: 'bc-2d-ef-a2-de-1f', label: 'Lutfi' },
   { id: 'ec-30-b3-9d-82-a3', label: 'Nasrul' },
   { id: 'c8-90-8a-cd-15-47', label: 'Shofi' },
+  { id: '4e-22-61-08-0b-88', label: 'Wahyuni' },
+  { id: '88-5a-06-62-26-a3', label: 'Irvan' },
 ]
 
 const isLoading = ref(false)
