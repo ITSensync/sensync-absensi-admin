@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import axios from 'axios'
+import DateFormatter from '@/utils/DateFormatter'
 
 export const useMainStore = defineStore('main', () => {
   const userName = ref('Admin')
@@ -56,7 +57,18 @@ export const useMainStore = defineStore('main', () => {
 
   function fetchPresenceToday() {
     axios.get('https://api-absensi.getsensync.com/api/absensi/rekap').then((result) => {
-      presenceToday.value = result?.data
+      const data = result?.data || []
+
+      const processedData = data.map((item) => {
+        const result_diff = DateFormatter.getDifferenceHour(item.waktu_masuk, item.terakhir_terlihat)
+
+        return {
+          ...item,
+          jumlah_jam: result_diff
+        }
+      })
+
+      presenceToday.value = processedData
     })
       .catch((error) => {
         alert(error.message)
@@ -65,7 +77,7 @@ export const useMainStore = defineStore('main', () => {
 
   function fetchPresenceMonthly(date) {
     axios.get(`https://api-absensi.getsensync.com/api/absensi/rekap/bulanan?bulan=${date}`).then((result) => {
-      presenceMonthly.value = result?.data
+      presenceMonthly.value = result?.data.sort((a, b) => b.jumlah_hadir - a.jumlah_hadir)
     })
       .catch((error) => {
         alert(error.message)
@@ -92,7 +104,16 @@ export const useMainStore = defineStore('main', () => {
     axios.get(`https://api-absensi.getsensync.com/api/absensi/rekap/detail/${mac_address}`).then((result) => {
       const allData = result?.data || []
 
-      const filtered = allData.filter((item) => {
+      const allProcessedData = allData.map((item) => {
+        const result_diff = DateFormatter.getDifferenceHour(item.waktu_masuk, item.terakhir_terlihat)
+
+        return {
+          ...item,
+          jumlah_jam: result_diff
+        }
+      })
+
+      const filtered = allProcessedData.filter((item) => {
         const seenMonth = new Date(item.terakhir_terlihat).toISOString().slice(0, 7) // "YYYY-MM"
         return seenMonth === filterMonth
       })

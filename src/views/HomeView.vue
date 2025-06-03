@@ -27,8 +27,10 @@ const dataPresenceToday = ref([])
 //   fillChartData()
 // })
 
+const dateNow = new Date()
+const currentMonth = dateNow.toISOString().slice(0, 7);
 mainStore.fetchPresenceToday()
-mainStore.fetchPresenceMonthly('2025-05')
+mainStore.fetchPresenceMonthly(currentMonth)
 watch(
   [() => mainStore.presenceToday, () => mainStore.presenceMonthly],
   ([newToday, newMonthly]) => {

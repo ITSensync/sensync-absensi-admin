@@ -91,6 +91,7 @@ const checked = (isChecked, client) => {
         <th>Waktu Masuk</th>
         <th>Waktu Keluar</th>
         <th>Terakhir Terlihat</th>
+        <th>Jumlah Jam</th>
       </tr>
     </thead>
     <tbody>
@@ -108,11 +109,14 @@ const checked = (isChecked, client) => {
         <td data-label="Waktu Masuk">
           {{ DateFormatter.convertToTime(presence.waktu_masuk) }}
         </td>
-        <td data-label="Waktu Masuk">
+        <td data-label="Waktu Keluar">
           {{ DateFormatter.convertToTime(presence.waktu_keluar) }}
         </td>
-        <td data-label="Waktu Masuk">
+        <td data-label="Terakhir Terlihat">
           {{ DateFormatter.convertToTime(presence.terakhir_terlihat) }}
+        </td>
+        <td data-label="Waktu Masuk">
+          {{ presence.jumlah_jam }}
         </td>
         <!-- <td data-label="Progress" class="lg:w-32">
           <progress class="flex w-2/5 self-center lg:w-full" max="100" :value="client.progress">

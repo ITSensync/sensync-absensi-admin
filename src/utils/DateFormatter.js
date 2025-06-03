@@ -39,9 +39,23 @@ function formatToDate(iso) {
   })
 }
 
+function getDifferenceHour(startIso, endIso) {
+  const start = new Date(startIso);
+  const end = new Date(endIso);
+
+  const diffMs = end - start; // selisih dalam milidetik
+  const diffMinutes = Math.floor(diffMs / 1000 / 60); // konversi ke menit
+
+  const hours = Math.floor(diffMinutes / 60);
+  const minutes = diffMinutes % 60;
+
+  return `${hours} jam ${minutes} menit`;
+}
+
 export default {
   convertToTime,
   convertToNamedMonth,
   getTodayMonth,
-  formatToDate
+  formatToDate,
+  getDifferenceHour
 }
