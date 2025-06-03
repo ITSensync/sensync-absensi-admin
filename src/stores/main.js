@@ -93,7 +93,18 @@ export const useMainStore = defineStore('main', () => {
       url = `https://api-absensi.getsensync.com/api/absensi/rekap/${startDate}`
     }
     axios.get(url).then((result) => {
-      presenceRangeByDate.value = result?.data
+      const data = result?.data || []
+
+      const processedData = data.map((item) => {
+        const result_diff = DateFormatter.getDifferenceHour(item.waktu_masuk, item.terakhir_terlihat)
+
+        return {
+          ...item,
+          jumlah_jam: result_diff
+        }
+      })
+
+      presenceRangeByDate.value = processedData
     })
       .catch((error) => {
         alert(error.message)
