@@ -128,10 +128,6 @@ export const useMainStore = defineStore('main', () => {
 
         return {
           ...item,
-          terakhir_terlihat: DateFormatter.convertToTime(item.terakhir_terlihat),
-          waktu_masuk: DateFormatter.convertToTime(item.waktu_masuk),
-          waktu_keluar: DateFormatter.convertToTime(item.waktu_keluar),
-          tanggal: DateFormatter.convertToDate(item.terakhir_terlihat),
           jumlah_jam: result_diff
         }
       })
@@ -141,7 +137,19 @@ export const useMainStore = defineStore('main', () => {
         return seenMonth === filterMonth
       })
 
-      presenceByPerson.value = filtered
+      const resultData = filtered.map((item) => {
+        return {
+          ...item,
+          terakhir_terlihat: DateFormatter.convertToTime(item.terakhir_terlihat),
+          waktu_masuk: DateFormatter.convertToTime(item.waktu_masuk),
+          waktu_keluar: DateFormatter.convertToTime(item.waktu_keluar),
+          tanggal: DateFormatter.convertToDate(item.terakhir_terlihat),
+        }
+      })
+
+      
+
+      presenceByPerson.value = resultData
 
     })
       .catch((error) => {
