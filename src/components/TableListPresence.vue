@@ -87,7 +87,7 @@ const checked = (isChecked, client) => {
         <th v-if="checkable" />
         <th />
         <th>Name</th>
-        <th>Mac Address</th>
+        <th>Tanggal</th>
         <th>Waktu Masuk</th>
         <th>Waktu Keluar</th>
         <th>Terakhir Terlihat</th>
@@ -103,8 +103,8 @@ const checked = (isChecked, client) => {
         <td data-label="Nama">
           {{ presence.nama }}
         </td>
-        <td data-label="Mac Address">
-          {{ presence.mac_address }}
+        <td data-label="Tanggal">
+          {{ DateFormatter.convertToDate(presence.terakhir_terlihat) }}
         </td>
         <td data-label="Waktu Masuk">
           {{ DateFormatter.convertToTime(presence.waktu_masuk) }}

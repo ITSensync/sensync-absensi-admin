@@ -13,6 +13,28 @@ function convertToTime(isoDate) {
   return time
 }
 
+function convertToDate(isoString) {
+
+  const date = new Date(isoString)
+
+  // Ambil tanggal berdasarkan hasil konversi WIB
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+
+  const result = `${day} ${getNamaBulan(month)} ${year}`
+
+  return result
+}
+
+function getNamaBulan(bulan) {
+  const namaBulan = [
+    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+  ]
+  return namaBulan[parseInt(bulan) - 1]
+}
+
 function convertToNamedMonth(isoMonth) {
   const date = new Date(isoMonth + "-01")
   const options = { year: 'numeric', month: 'long' }
@@ -54,6 +76,7 @@ function getDifferenceHour(startIso, endIso) {
 
 export default {
   convertToTime,
+  convertToDate,
   convertToNamedMonth,
   getTodayMonth,
   formatToDate,
