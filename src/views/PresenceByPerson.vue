@@ -24,6 +24,7 @@ const selectOptions = [
   { id: '4e-22-61-08-0b-88', label: 'Wahyuni' },
   { id: '88-5a-06-62-26-a3', label: 'Irvan' },
   { id: '4e-af-bc-ac-e1-8f', label: 'Selli' },
+  { id: '8c-34-01-d4-6c-ad', label: 'Candra' },
 ]
 
 const isLoading = ref(false)
