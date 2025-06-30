@@ -69,6 +69,26 @@ function handleReset() {
 function handleBtnExcel() {
   Export.exportToExcel(tableData.value, `Absensi_${form.name.label}-${form.filterMonth}.xlsx`)
 }
+
+function calculateJumlahJam(tableData) {
+  let totalMenit = 0
+  console.log(tableData);
+  
+  tableData.forEach((item) => {
+    const match = item.jumlah_jam.match(/(\d+)\s*jam\s*(\d+)\s*menit/)
+    if (match) {
+      const jam = parseInt(match[1], 10)
+      const menit = parseInt(match[2], 10)
+      totalMenit += jam * 60 + menit
+    }
+  })
+
+  // Konversi ke format total jam dan menit
+  const totalJam = Math.floor(totalMenit / 60)
+  const sisaMenit = totalMenit % 60
+
+  return `${totalJam} jam ${sisaMenit} menit`
+}
 </script>
 
 <template>
@@ -106,7 +126,7 @@ function handleBtnExcel() {
 
       <SectionTitleLineWithButton
         :icon="mdiTable"
-        :title="`Daftar Absensi (${tableData.length})  -  ${selectedName}`"
+        :title="`Daftar Absensi (${tableData.length})  -  ${selectedName} - ${calculateJumlahJam(tableData)}`"
       >
         <BaseButton
           @click="handleBtnExcel"
