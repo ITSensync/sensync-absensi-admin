@@ -64,6 +64,10 @@ export const useMainStore = defineStore('main', () => {
 
         return {
           ...item,
+          terakhir_terlihat: DateFormatter.convertToTime(item.terakhir_terlihat),
+          waktu_masuk: DateFormatter.convertToTime(item.waktu_masuk),
+          waktu_keluar: DateFormatter.convertToTime(item.waktu_keluar),
+          tanggal: DateFormatter.convertToDate(item.terakhir_terlihat),
           jumlah_jam: result_diff
         }
       })
@@ -100,6 +104,10 @@ export const useMainStore = defineStore('main', () => {
 
         return {
           ...item,
+          terakhir_terlihat: DateFormatter.convertToTime(item.terakhir_terlihat),
+          waktu_masuk: DateFormatter.convertToTime(item.waktu_masuk),
+          waktu_keluar: DateFormatter.convertToTime(item.waktu_keluar),
+          tanggal: DateFormatter.convertToDate(item.terakhir_terlihat),
           jumlah_jam: result_diff
         }
       })
@@ -120,6 +128,10 @@ export const useMainStore = defineStore('main', () => {
 
         return {
           ...item,
+          terakhir_terlihat: DateFormatter.convertToTime(item.terakhir_terlihat),
+          waktu_masuk: DateFormatter.convertToTime(item.waktu_masuk),
+          waktu_keluar: DateFormatter.convertToTime(item.waktu_keluar),
+          tanggal: DateFormatter.convertToDate(item.terakhir_terlihat),
           jumlah_jam: result_diff
         }
       })

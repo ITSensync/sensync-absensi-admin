@@ -5,7 +5,6 @@ import TableCheckboxCell from '@/components/TableCheckboxCell.vue'
 import BaseLevel from '@/components/BaseLevel.vue'
 import BaseButtons from '@/components/BaseButtons.vue'
 import BaseButton from '@/components/BaseButton.vue'
-import DateFormatter from '@/utils/DateFormatter'
 
 const props = defineProps({
   checkable: Boolean,
@@ -104,16 +103,16 @@ const checked = (isChecked, client) => {
           {{ presence.nama }}
         </td>
         <td data-label="Tanggal">
-          {{ DateFormatter.convertToDate(presence.terakhir_terlihat) }}
+          {{ presence.tanggal }}
         </td>
         <td data-label="Waktu Masuk">
-          {{ DateFormatter.convertToTime(presence.waktu_masuk) }}
+          {{ presence.waktu_masuk }}
         </td>
         <td data-label="Waktu Keluar">
-          {{ DateFormatter.convertToTime(presence.waktu_keluar) }}
+          {{ presence.waktu_keluar }}
         </td>
         <td data-label="Waktu Terakhir Terlihat">
-          {{ DateFormatter.convertToTime(presence.terakhir_terlihat) }}
+          {{ presence.terakhir_terlihat }}
         </td>
         <td data-label="Jumlah Jam">
           {{ presence.jumlah_jam }}
