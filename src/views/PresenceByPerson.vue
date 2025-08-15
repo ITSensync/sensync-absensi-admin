@@ -27,7 +27,7 @@ const selectOptions = [
   { id: '8c-93-8b-26-8a-3b', label: 'Irvan Baru' },
   { id: '4e-af-bc-ac-e1-8f', label: 'Selli Lama' },
   { id: '32-d2-ca-6b-eb-de', label: 'Selli Baru' },
-  { id: '86-eb-b3-b5-bf-c2', label: 'Selli Baru 2' },
+  { id: 'f0-c3-71-d0-09-74', label: 'Selli Baru 2' },
 ]
 
 const isLoading = ref(false)
