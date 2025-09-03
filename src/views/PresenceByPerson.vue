@@ -17,6 +17,7 @@ import { reactive, ref, watch } from 'vue'
 const selectOptions = [
   { id: 'f0-62-5a-c0-c0-71', label: 'Alief' },
   { id: '7C-2A-DB-A5-58-AA', label: 'Beben' },
+  { id: 'b4-9d-02-f5-c2-33', label: 'Bijak' },
   { id: '8c-34-01-d4-6c-ad', label: 'Candra' },
   { id: '94-54-ce-27-35-4b', label: 'Faisal' },
   { id: 'bc-2d-ef-a2-de-1f', label: 'Lutfi' },
@@ -75,8 +76,8 @@ function handleBtnExcel() {
 
 function calculateJumlahJam(tableData) {
   let totalMenit = 0
-  console.log(tableData);
-  
+  console.log(tableData)
+
   tableData.forEach((item) => {
     const match = item.jumlah_jam.match(/(\d+)\s*jam\s*(\d+)\s*menit/)
     if (match) {
