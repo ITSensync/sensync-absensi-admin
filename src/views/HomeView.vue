@@ -98,7 +98,10 @@ const transactionBarItems = computed(() => mainStore.history) */
         class="-mt-12"
       />
 
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-5 gap-y-4 -mb-10 -mt-2">
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-5 gap-y-4 -mb-10 -mt-2"
+        v-if="totalPresenceToday > 0"
+      >
         <CardName
           v-for="(item, index) in dataPresenceToday"
           :key="index"
@@ -108,6 +111,9 @@ const transactionBarItems = computed(() => mainStore.history) */
         />
       </div>
 
+      <CardBox v-else>
+        <CardBoxComponentEmpty text="Belum ada yang absen nih..." />
+      </CardBox>
       <!-- 
 
       <CardBox has-table v-if="totalPresenceToday > 0">
