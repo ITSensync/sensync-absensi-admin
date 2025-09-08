@@ -2,7 +2,7 @@
 import { mdiCheckBold, mdiCloseThick } from '@mdi/js'
 import BaseIcon from './BaseIcon.vue'
 import CardBox from './CardBox.vue'
-import { ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, } from 'vue'
 
 const props = defineProps({
   name: {
@@ -19,23 +19,28 @@ const props = defineProps({
   },
 })
 
-const last_update = ref(props.lastUpdate)
 const timeNow = ref(new Date())
-const notConnect = ref(false)
+let intervalId = null
 
-watch(
-  timeNow,
-  (newTime) => {
-    const today = new Date().toISOString().split('T')[0] // "2025-09-04"
-    const lastUpdateDate = new Date(`${today}T${last_update.value}`) // "2025-09-04T08:52:50"
+onMounted(() => {
+  intervalId = setInterval(() => {
+    timeNow.value = new Date()
+  }, 60 * 1000)
+})
 
-    const diffMin = (newTime - lastUpdateDate) / 60000
-    if (diffMin > 10) {
-      notConnect.value = true
-    }
-  },
-  { immediate: true },
-)
+onUnmounted(() => {
+  if (intervalId) clearInterval(intervalId)
+})
+
+const notConnect = computed(() => {
+  if (!props.lastUpdate) return true
+
+  const today = new Date().toISOString().split('T')[0] // ex: "2025-09-08"
+  const lastUpdateDate = new Date(`${today}T${props.lastUpdate}`)
+  const diffMin = (timeNow.value - lastUpdateDate) / 60000
+
+  return diffMin > 10
+})
 </script>
 
 <template>
