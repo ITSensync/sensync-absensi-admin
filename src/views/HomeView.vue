@@ -50,7 +50,7 @@ onMounted(() => {
 
   // ulangi setiap 5 menit (300000 ms)
   intervalId = setInterval(() => {
-    fetchData()
+    window.location.reload()
   }, 120000)
 })
 
