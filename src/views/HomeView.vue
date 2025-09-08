@@ -95,11 +95,11 @@ const transactionBarItems = computed(() => mainStore.history) */
       <SectionTitleLineWithButton
         :icon="mdiAccountMultiple"
         title="Absensi Hari Ini"
-        class="-mt-12"
+        class="-mt-10"
       />
 
       <div
-        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-5 gap-y-4 -mb-10 -mt-2"
+        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-5 gap-y-4 mt-2"
         v-if="totalPresenceToday > 0"
       >
         <CardName
