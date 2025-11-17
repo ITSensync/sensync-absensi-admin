@@ -19,6 +19,7 @@ const selectOptions = [
   { id: '7C-2A-DB-A5-58-AA', label: 'Beben' },
   { id: 'b4-9d-02-f5-c2-33', label: 'Bijak' },
   { id: '8c-34-01-d4-6c-ad', label: 'Candra' },
+  { id: 'bc-a5-a9-6a-7f-fb', label: 'Candra 2'},
   { id: '94-54-ce-27-35-4b', label: 'Faisal' },
   { id: 'bc-2d-ef-a2-de-1f', label: 'Lutfi' },
   { id: 'ec-30-b3-9d-82-a3', label: 'Nasrul' },
