@@ -25,6 +25,7 @@ const selectOptions = [
   { id: 'ec-30-b3-9d-82-a3', label: 'Nasrul' },
   { id: 'c8-90-8a-cd-15-47', label: 'Shofi' },
   { id: '4e-22-61-08-0b-88', label: 'Wahyuni' },
+  { id: '26-C6-17-19-6C-49', label: 'Wahyuni 2' },
   { id: '88-5a-06-62-26-a3', label: 'Irvan' },
   { id: '8c-93-8b-26-8a-3b', label: 'Irvan Baru' },
   { id: '4e-af-bc-ac-e1-8f', label: 'Selli Lama' },
